@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PageFormController">
+    <stylesheets>
+        <URL value="@/application_style/pageform.css" />
+    </stylesheets>
+   <children>
+      <MenuBar fx:id="menuBar" layoutY="-2.0" prefHeight="25.0" prefWidth="1200.0">
+        <menus>
+          <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="menuItemExitFile" mnemonicParsing="false" onAction="#menuItemExitFile" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ToolBar fx:id="toolBar" layoutX="-2.0" layoutY="630.0" prefHeight="30.0" prefWidth="1200.0">
+         <items>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="1020.0" />
+            <DatePicker fx:id="dateNow" editable="false" prefHeight="25.0" prefWidth="160.0" />
+         </items>
+      </ToolBar>
+      <TabPane fx:id="tabPage" layoutX="250.0" layoutY="24.0" prefHeight="604.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+        <tabs>
+          <Tab fx:id="LecteurTab" onSelectionChanged="#TabClickedLecteur" text="Lecteur">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.2546" prefHeight="607.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblNumero" layoutX="28.0" layoutY="129.0" text="Numero :" />
+                                    <Label fx:id="lblNom" layoutX="28.0" layoutY="201.0" text="Nom :" />
+                                    <TextField fx:id="txtNumero" layoutX="120.0" layoutY="125.0" onKeyReleased="#ValidateFormLecteur" prefHeight="25.0" prefWidth="160.0" promptText="Numero du lecteur">
+                                       <tooltip>
+                                          <Tooltip fx:id="numero" />
+                                       </tooltip>
+                                    </TextField>
+                                    <TextField fx:id="txtNom" layoutX="121.0" layoutY="197.0" onKeyReleased="#ValidateFormLecteur" prefHeight="25.0" prefWidth="160.0" promptText="Nom du lecteur">
+                                       <tooltip>
+                                          <Tooltip fx:id="nom" />
+                                       </tooltip>
+                                    </TextField>
+                                    <Button fx:id="btnAjouterLecteur" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnAjouterLecteur" prefHeight="25.0" prefWidth="80.0" text="Ajouter" />
+                                    <Button fx:id="btnModifierLecteur" layoutX="114.0" layoutY="282.0" mnemonicParsing="false" onAction="#btnModifierLecteur" prefHeight="25.0" prefWidth="80.0" text="Modifier" />
+                                    <Button fx:id="btnSupprimerLecteur" layoutX="201.0" layoutY="309.0" mnemonicParsing="false" onAction="#btnSupprimerLecteur" prefHeight="25.0" prefWidth="80.0" text="Supprimer" />
+                                    <Button fx:id="btnEffacerLecteur" layoutX="27.0" layoutY="309.0" mnemonicParsing="false" onAction="#btnEffacerLecteur" prefHeight="25.0" prefWidth="80.0" text="Effacer" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="tblLecteur" layoutX="215.0" layoutY="114.0" onMouseClicked="#tblMouseClickedLecteur" prefHeight="307.0" prefWidth="890.0" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblNumero" prefWidth="75.0" text="Numero" />
+                                        <TableColumn fx:id="tblNom" prefWidth="75.0" text="Nom" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <TextField fx:id="txtSearchLecteur" layoutX="228.0" layoutY="312.0" onKeyReleased="#btnSearchLecteur" prefHeight="25.0" prefWidth="648.0" promptText="Recherche ..." />
+                                    <Label fx:id="lblSearchLecteur" layoutX="98.0" layoutY="316.0" prefHeight="17.0" prefWidth="128.0" text="Recherche générale :" />
+                                    <Label fx:id="lblNombreLecteur" layoutX="364.0" layoutY="361.0" prefHeight="17.0" prefWidth="117.0" text="Nombre de lecteur :" />
+                                    <TextField fx:id="txtNombreLecteur" editable="false" layoutX="485.0" layoutY="358.0" prefHeight="25.0" prefWidth="40.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="LivreTab" onSelectionChanged="#TabClickedLivre" text="Livre">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.25459098497495825" layoutX="416.0" layoutY="194.0" prefHeight="575.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblNumLivre" layoutX="28.0" layoutY="77.0" text="Numero :" />
+                                    <Label fx:id="lblDesignation" layoutX="28.0" layoutY="127.0" text="Designation :" />
+                                    <Label fx:id="lblAuteur" layoutX="31.0" layoutY="218.0" prefHeight="17.0" prefWidth="45.0" text="Auteur :" />
+                                    <Label fx:id="lblDate_Edition" layoutX="29.0" layoutY="267.0" prefHeight="17.0" prefWidth="72.0" text="Date Edition :" />
+                                    <TextField fx:id="txtNumLivre" layoutX="109.0" layoutY="73.0" onKeyPressed="#ValidateFormPret" onKeyReleased="#ValidateFormLivre" prefHeight="25.0" prefWidth="160.0" promptText="Numero du livre">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipNumeroLivre" />
+                                       </tooltip></TextField>
+                                    <TextField fx:id="txtDesignation" layoutX="109.0" layoutY="123.0" onKeyPressed="#ValidateFormPret" onKeyReleased="#ValidateFormLivre" prefHeight="25.0" prefWidth="160.0" promptText="Designation du livre">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDesignLivre" />
+                                       </tooltip></TextField>
+                                    <TextField fx:id="txtAuteur" layoutX="109.0" layoutY="214.0" onKeyPressed="#ValidateFormPret" onKeyReleased="#ValidateFormLivre" prefHeight="25.0" prefWidth="160.0" promptText="Auteur du livre">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipAuteurLivre" />
+                                       </tooltip></TextField>
+                                    <Label fx:id="lblDisponible" layoutX="30.0" layoutY="316.0" prefHeight="17.0" prefWidth="70.0" text="Disponible :" />
+                                    <ComboBox fx:id="comboDisponible" layoutX="110.0" layoutY="312.0" onKeyPressed="#ValidateFormPret" onKeyReleased="#ValidateFormLivre" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDisponibleLivre" />
+                                       </tooltip></ComboBox>
+                                    <Button fx:id="btnAjouterLivre" layoutX="25.0" layoutY="345.0" mnemonicParsing="false" onAction="#btnAjouterLivre" prefHeight="25.0" prefWidth="80.0" text="Ajouter" />
+                                    <Button fx:id="btnModifierLivre" layoutX="111.0" layoutY="376.0" mnemonicParsing="false" onAction="#btnModifierLivre" prefHeight="25.0" prefWidth="80.0" text="Modifier" />
+                                    <Button fx:id="btnSupprimerLivre" layoutX="191.0" layoutY="407.0" mnemonicParsing="false" onAction="#btnSupprimerLivre" prefHeight="25.0" prefWidth="80.0" text="Supprimer" />
+                                    <Button fx:id="btnEffacerLivre" layoutX="25.0" layoutY="407.0" mnemonicParsing="false" onAction="#btnEffacerLivre" prefHeight="25.0" prefWidth="80.0" text="Effacer" />
+                                    <DatePicker fx:id="txtDateEdition" editable="false" layoutX="109.0" layoutY="263.0" onKeyPressed="#ValidateFormPret" onKeyReleased="#ValidateFormLivre" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDatEditionLivre" />
+                                       </tooltip>
+                                    </DatePicker>
+                                    <Label fx:id="lblTitre" layoutX="30.0" layoutY="174.0" text="Titre" />
+                                    <TextField fx:id="txtTitre" layoutX="109.0" layoutY="170.0" onKeyReleased="#ValidateFormLivre" prefHeight="25.0" prefWidth="160.0" promptText="Titre du livre">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipTitre" text="Empty Tooltip" />
+                                       </tooltip>
+                                    </TextField>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="tblLivre" layoutX="133.0" layoutY="53.0" onMouseClicked="#tblMouseClickedLivre" prefHeight="375.0" prefWidth="890.0" AnchorPane.bottomAnchor="198.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblNumLivre" prefWidth="75.0" text="Numero" />
+                                        <TableColumn fx:id="tblDesignation" prefWidth="75.0" text="Designation" />
+                                          <TableColumn fx:id="tblTitre" prefWidth="75.0" text="Titre" />
+                                          <TableColumn fx:id="tblAuteur" prefWidth="75.0" text="Auteur" />
+                                          <TableColumn fx:id="tblDate_Edition" prefWidth="75.0" text="Date Edition" />
+                                          <TableColumn fx:id="tblDisponible" prefWidth="75.0" text="Disponible" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <TextField fx:id="txtLivreSearch" layoutX="259.0" layoutY="382.0" onKeyReleased="#btnSearchLivre" prefHeight="25.0" prefWidth="160.0" promptText="Recherche ..." />
+                                    <TextField fx:id="txtTitAutSearch" layoutX="382.0" layoutY="430.0" onKeyReleased="#btnTitAutSearchLivre" prefHeight="25.0" prefWidth="160.0" promptText="Titre/Auteur" />
+                                    <Label fx:id="lblNombreLivre" layoutX="374.0" layoutY="482.0" prefHeight="17.0" prefWidth="177.0" text="Nombre de categorie de livres :" />
+                                    <TextField fx:id="txtNombreLivre" layoutX="565.0" layoutY="478.0" prefHeight="25.0" prefWidth="40.0" />
+                                    <RadioButton fx:id="rbtnSearchLivre" layoutX="100.0" layoutY="385.0" mnemonicParsing="false" onAction="#rbtnSearchLivre" prefHeight="17.0" prefWidth="134.0" text="Recherche générale :">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="groupRadioButtonLivre" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rbtnTitAutSearchLivre" layoutX="224.0" layoutY="432.0" mnemonicParsing="false" onAction="#rbtnTitAutSearchLivre" prefHeight="17.0" prefWidth="138.0" text="Recherche specifié :" toggleGroup="$groupRadioButtonLivre" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="PretTab" onSelectionChanged="#TabClickedPret" text="Pret">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.2546" layoutX="189.0" layoutY="100.0" prefHeight="575.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblNumPret" layoutX="26.0" layoutY="80.0" prefHeight="17.0" prefWidth="76.0" text="N° Pret :" />
+                                    <Label fx:id="lblLecteurNum" layoutX="26.0" layoutY="129.0" prefHeight="17.0" prefWidth="76.0" text="N° Lecteur :" />
+                                    <Label fx:id="lblLivreNum" layoutX="26.0" layoutY="179.0" prefHeight="17.0" prefWidth="76.0" text="N° Livre :" />
+                                    <Label fx:id="lblDatePret" layoutX="26.0" layoutY="228.0" prefHeight="17.0" prefWidth="76.0" text="Date Pret :" />
+                                    <Label fx:id="lblDateRetour" layoutX="26.0" layoutY="278.0" prefHeight="17.0" prefWidth="76.0" text="Date Retour :" />
+                                    <TextField fx:id="txtNumPret" layoutX="108.0" layoutY="76.0" onKeyReleased="#ValidateFormPret" prefHeight="25.0" prefWidth="160.0" promptText="Numero du prêt">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipNumPret" />
+                                       </tooltip></TextField>
+                                    <ComboBox fx:id="comboLecteurNum" layoutX="108.0" layoutY="125.0" onKeyReleased="#ValidateFormPret" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipLecteurNum" />
+                                       </tooltip></ComboBox>
+                                    <ComboBox fx:id="comboLivreNum" layoutX="108.0" layoutY="175.0" onKeyReleased="#ValidateFormPret" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipLivreNum" />
+                                       </tooltip></ComboBox>
+                                    <DatePicker fx:id="txtDatePret" editable="false" layoutX="108.0" layoutY="224.0" onKeyReleased="#ValidateFormPret" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDatePre" />
+                                       </tooltip></DatePicker>
+                                    <DatePicker fx:id="txtDateRetour" editable="false" layoutX="108.0" layoutY="274.0" onKeyReleased="#ValidateFormPret" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDateRet" />
+                                       </tooltip></DatePicker>
+                                    <Button fx:id="btnAjouterPret" layoutX="28.0" layoutY="320.0" mnemonicParsing="false" onAction="#btnAjouterPret" prefHeight="25.0" prefWidth="80.0" text="Ajouter" />
+                                    <Button fx:id="btnModifierPret" layoutX="111.0" layoutY="351.0" mnemonicParsing="false" onAction="#btnModifierPret" prefHeight="25.0" prefWidth="80.0" text="Modifier" />
+                                    <Button fx:id="btnSupprimerPret" layoutX="191.0" layoutY="383.0" mnemonicParsing="false" onAction="#btnSupprimerPret" prefHeight="25.0" prefWidth="80.0" text="Supprimer" />
+                                    <Button fx:id="btnEffacerPret" layoutX="28.0" layoutY="383.0" mnemonicParsing="false" onAction="#btnEffacerPret" prefHeight="25.0" prefWidth="80.0" text="Effacer" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="tblPret" layoutX="114.0" layoutY="100.0" onMouseClicked="#tblMouseClickedPret" prefHeight="379.0" prefWidth="890.0" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblNumPret" prefWidth="75.0" text="Numero Pret" />
+                                        <TableColumn fx:id="tblLecteurNum" prefWidth="75.0" text="Numero Lecteur" />
+                                          <TableColumn fx:id="tblLivreNum" prefWidth="75.0" text="Numero Livre" />
+                                          <TableColumn fx:id="tblDatePret" prefWidth="75.0" text="Date Pret" />
+                                          <TableColumn fx:id="tblDateRetour" prefWidth="75.0" text="Date Retour" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <TextField fx:id="txtSearchPret" layoutX="236.0" layoutY="387.0" onKeyReleased="#btnSearchPret" prefHeight="25.0" prefWidth="633.0" promptText="Recherche ..." />
+                                    <Label fx:id="lblSearchPret" layoutX="105.0" layoutY="391.0" prefHeight="17.0" prefWidth="128.0" text="Recherche générale :" />
+                                    <Label fx:id="lblNombrePret" layoutX="311.0" layoutY="437.0" prefHeight="17.0" prefWidth="146.0" text="Nombre de prêt effectué :" />
+                                    <TextField fx:id="txtNombrePret" editable="false" layoutX="470.0" layoutY="433.0" prefHeight="25.0" prefWidth="40.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="OuvrageTab" onSelectionChanged="#TabClickedOuvrage" text="Ouvrage">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.6963" layoutX="520.0" layoutY="156.0" orientation="VERTICAL" prefHeight="575.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="tblOuvrage" layoutX="499.0" layoutY="139.0" prefHeight="477.0" prefWidth="1198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblNumLecteur" prefWidth="75.0" text="Numero Lecteur" />
+                                        <TableColumn fx:id="tblNomLecteur" prefWidth="75.0" text="Nom" />
+                                          <TableColumn fx:id="tblDesignationOuvrage" prefWidth="75.0" text="Livre" />
+                                          <TableColumn fx:id="tblTitreOuvrage" prefWidth="75.0" text="Titre" />
+                                          <TableColumn fx:id="tblAuteurOuvrage" prefWidth="75.0" text="Auteur" />
+                                          <TableColumn fx:id="tblDateEditionOuvrage" prefWidth="75.0" text="Date Edition" />
+                                          <TableColumn fx:id="tblDatePretOuvrage" prefWidth="75.0" text="Date Pret" />
+                                          <TableColumn fx:id="tblDateRetourOuvrage" prefWidth="75.0" text="Date Retour" />
+                                          <TableColumn fx:id="tblAmendeOuvrage" prefWidth="75.0" text="Amende" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <DatePicker fx:id="txtDatePretDeb" editable="false" layoutX="481.0" layoutY="115.0" onKeyReleased="#ValidateBetweenTwoDateFormOuvrage" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDatePretDeb" />
+                                       </tooltip></DatePicker>
+                                    <DatePicker fx:id="txtDatePretFin" editable="false" layoutX="675.0" layoutY="117.0" onKeyReleased="#ValidateBetweenTwoDateFormOuvrage" prefHeight="25.0" prefWidth="160.0">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipDatePretFin" />
+                                       </tooltip></DatePicker>
+                                    <Button fx:id="btnEntreDeuxDatePretSearch" layoutX="863.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnEntreDeuxDatePretSearch" prefHeight="25.0" prefWidth="80.0" text="Envoyer" />
+                                    <Button layoutX="952.0" layoutY="55.0" mnemonicParsing="false" onAction="#btnListesOuvrage" prefHeight="25.0" prefWidth="80.0" text="Listes" />
+                                    <TextField fx:id="txtSearchYear" layoutX="393.0" layoutY="75.0" onKeyReleased="#ValidateYearFormOuvrage" prefHeight="25.0" prefWidth="160.0" promptText="Année en cours">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipYearSearchOuvrage" />
+                                       </tooltip></TextField>
+                                    <Button fx:id="btnYearSearch" layoutX="581.0" layoutY="73.0" mnemonicParsing="false" onAction="#btnYearSearch" prefHeight="25.0" prefWidth="80.0" text="Envoyer" />
+                                    <ComboBox fx:id="comboMonthOuvrage" layoutX="316.0" layoutY="32.0" onKeyReleased="#ValidateYearMonthFormOuvrage" prefHeight="25.0" prefWidth="160.0" promptText="Mois">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipMonthOuvrage" />
+                                       </tooltip></ComboBox>
+                                    <TextField fx:id="txtSearchYearsList" layoutX="508.0" layoutY="32.0" onKeyReleased="#ValidateYearMonthFormOuvrage" prefHeight="25.0" prefWidth="160.0" promptText="Année en cours">
+                                       <tooltip>
+                                          <Tooltip fx:id="tipYearOuvrage" />
+                                       </tooltip></TextField>
+                                    <Button fx:id="btnYearMonthSearch" layoutX="695.0" layoutY="31.0" mnemonicParsing="false" onAction="#btnYearMonthSearch" prefHeight="25.0" prefWidth="80.0" text="Envoyer" />
+                                    <RadioButton fx:id="rbtnMonthOuvrageList" layoutX="179.0" layoutY="38.0" mnemonicParsing="false" onAction="#rbtnMonthOuvrageList" text="Dans un mois">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="groupRadioButton" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rbtnYearOuvrageList" layoutX="246.0" layoutY="78.0" mnemonicParsing="false" onAction="#rbtnYearOuvrageList" text="Dans une année" toggleGroup="$groupRadioButton" />
+                                    <RadioButton fx:id="rbtnBetweenTwoDateOuvrageList" layoutX="325.0" layoutY="119.0" mnemonicParsing="false" onAction="#rbtnBetweenTwoDateOuvrageList" text="Entre deux dates" toggleGroup="$groupRadioButton" />
+                                    <TextField fx:id="txtNombreOuvrage" editable="false" layoutX="181.0" layoutY="111.0" prefHeight="25.0" prefWidth="40.0" />
+                                    <Label fx:id="lblNombreLivrePret" layoutX="45.0" layoutY="115.0" text="Nombre de livres prêtés :" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="SituationLivreTab" onSelectionChanged="#TabClickedSituationLivre" text="Situation Livre">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.6963" layoutX="269.0" layoutY="125.0" orientation="VERTICAL" prefHeight="575.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="tblSituationLivre" layoutX="357.0" layoutY="82.0" prefHeight="396.0" prefWidth="1198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblNumLivreSituation" prefWidth="75.0" text="Numero Livre" />
+                                        <TableColumn fx:id="tblDesignationSituation" prefWidth="75.0" text="Designation" />
+                                          <TableColumn fx:id="tblTitreSituation" prefWidth="75.0" text="Titre" />
+                                          <TableColumn fx:id="tblAuteurSituation" prefWidth="75.0" text="Auteur" />
+                                          <TableColumn fx:id="tblDateEditionSituation" prefWidth="75.0" text="Date Edition" />
+                                          <TableColumn fx:id="tblDisponibleSituation" prefWidth="75.0" text="Disponible" />
+                                          <TableColumn fx:id="tblNbFoisPretSituation" prefWidth="75.0" text="Nombre de Fois Pret" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Button fx:id="btnListeSituationLivre" layoutX="1068.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnListeSituationLivre" prefHeight="25.0" prefWidth="80.0" text="Listes" />
+                                    <Button fx:id="btnDiagrammeCirculaireLivreSituation" layoutX="59.0" layoutY="73.0" mnemonicParsing="false" onAction="#btnDiagrammeCirculaireLivreSituation" prefHeight="25.0" prefWidth="160.0" text="Diagramme Circulaire" />
+                                    <Button fx:id="btnDiagrammeBattonLivreSituation" layoutX="509.0" layoutY="73.0" mnemonicParsing="false" onAction="#btnDiagrammeBattonLivreSituation" prefHeight="25.0" prefWidth="160.0" text="Diagramme en Batton" />
+                                    <Button fx:id="btnDiagrammeLineaireLivreSituation" layoutX="979.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnDiagrammeLineaireLivreSituation" prefHeight="25.0" prefWidth="160.0" text="Diagramme Lineaire" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="SituationGeneralLivreTab" onSelectionChanged="#TabClickedSituationGeneralLivre" text="Situation General">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.6963" layoutX="264.0" layoutY="124.0" orientation="VERTICAL" prefHeight="575.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="tblSituationGeneralLivre" layoutX="227.0" layoutY="80.0" prefHeight="396.0" prefWidth="1198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblSituationDesignation" prefWidth="75.0" text="Designation du Livre" />
+                                        <TableColumn fx:id="tblSituationNbFoisPret" prefWidth="75.0" text="Nombre de prêts effectués" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Button fx:id="btnDiagrammeCirculaireLivreGeneralSituation" layoutX="167.0" layoutY="73.0" mnemonicParsing="false" onAction="#btnDiagrammeCirculaireLivreGeneralSituation" text="Diagramme Circulaire" />
+                                    <Button fx:id="btnDiagrammeBattonLivreGeneralSituation" layoutX="977.0" layoutY="73.0" mnemonicParsing="false" onAction="#btnDiagrammeBattonLivreGeneralSituation" text="Diagramme en Batton" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
